@@ -97,18 +97,18 @@ export default function RanksPage() {
       <Navbar />
 
       {/* Hero Section with seamless background */}
-      <section className="pt-24 pb-16 relative overflow-hidden min-h-[60vh] flex items-center">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-secondary/20" />
+      <section className="relative min-h-[40vh] flex items-center justify-center overflow-hidden bg-transparent">
+        <div className="relative z-10 text-center px-4" />
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/10 rounded-full blur-3xl" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Badge className="mb-6 gradient-primary text-white px-4 py-2">Server Ranks</Badge>
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
+          <Badge className="mb-4 px-4 py-2">Server Ranks</Badge>
+          <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">
             Choose Your
-            <span className="block gradient-primary bg-clip-text text-transparent">Rank</span>
+            <span className="block">Rank</span>
           </h1>
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-white/80 max-w-2xl mx-auto">
             Unlock exclusive perks, commands, and privileges with our premium server ranks. Each rank builds upon the
             previous one.
           </p>
