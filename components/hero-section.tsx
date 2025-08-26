@@ -15,6 +15,8 @@ export function HeroSection() {
         <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
           <span className="bg-gradient-to-r from-[#1E90FF] to-[#663399] bg-clip-text text-transparent">
             Frost Network
+        </span>
+          <span className="bg-gradient-to-r from-[#1E90FF] to-[#663399] bg-clip-text text-transparent">Minecraft Experience</span>
         </h1>
 
         <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
