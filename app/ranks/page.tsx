@@ -93,13 +93,14 @@ const rankUpgrades = [
 
 export default function RanksPage() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
       <Navbar />
 
-      {/* Hero Section */}
-      <section className="pt-24 pb-16 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10" />
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
+      {/* Hero Section with seamless background */}
+      <section className="pt-24 pb-16 relative overflow-hidden min-h-[60vh] flex items-center">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-secondary/20" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/10 rounded-full blur-3xl" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Badge className="mb-6 gradient-primary text-white px-4 py-2">Server Ranks</Badge>
@@ -114,85 +115,92 @@ export default function RanksPage() {
         </div>
       </section>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-        {/* All Ranks */}
-        <section className="mb-16">
-          <div className="flex items-center space-x-2 mb-8">
-            <Crown className="w-6 h-6 text-primary" />
-            <h2 className="text-3xl font-bold text-white">All Ranks</h2>
-          </div>
+      <main className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        {/* Extended hero background overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-secondary/20 pointer-events-none" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary/10 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {ranks.map((rank, index) => (
-              <Card key={index} className="glass hover-glow border-white/20 overflow-hidden group relative">
-                {rank.popular && (
-                  <div className="absolute top-4 right-4 z-10">
-                    <Badge className="gradient-primary text-white">Popular</Badge>
-                  </div>
-                )}
+        <div className="relative z-10">
+          {/* All Ranks */}
+          <section className="mb-16">
+            <div className="flex items-center space-x-2 mb-8">
+              <Crown className="w-6 h-6 text-primary" />
+              <h2 className="text-3xl font-bold text-white">All Ranks</h2>
+            </div>
 
-                <CardHeader className="p-0">
-                  <div className="relative h-48 overflow-hidden">
-                    <img
-                      src={rank.image || "/placeholder.svg"}
-                      alt={rank.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    <Badge className="absolute top-4 left-4 bg-secondary text-white">{rank.badge}</Badge>
-                  </div>
-                </CardHeader>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {ranks.map((rank, index) => (
+                <Card key={index} className="glass hover-glow border-white/20 overflow-hidden group relative">
+                  {rank.popular && (
+                    <div className="absolute top-4 right-4 z-10">
+                      <Badge className="gradient-primary text-white">Popular</Badge>
+                    </div>
+                  )}
 
-                <CardContent className="p-6">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <div className="text-primary">{rank.icon}</div>
-                    <CardTitle className="text-white text-xl">{rank.title}</CardTitle>
-                  </div>
+                  <CardHeader className="p-0">
+                    <div className="relative h-48 overflow-hidden">
+                      <img
+                        src={rank.image || "/placeholder.svg"}
+                        alt={rank.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <Badge className="absolute top-4 left-4 bg-secondary text-white">{rank.badge}</Badge>
+                    </div>
+                  </CardHeader>
 
-                  <p className="text-muted-foreground text-sm mb-4">{rank.description}</p>
+                  <CardContent className="p-6">
+                    <div className="flex items-center space-x-2 mb-2">
+                      <div className="text-primary">{rank.icon}</div>
+                      <CardTitle className="text-white text-xl">{rank.title}</CardTitle>
+                    </div>
 
-                  <div className="flex items-center space-x-2 mb-4">
-                    <span className="text-2xl font-bold text-primary">${rank.price}</span>
-                    {rank.originalPrice && (
-                      <span className="text-muted-foreground line-through">${rank.originalPrice}</span>
-                    )}
-                  </div>
+                    <p className="text-muted-foreground text-sm mb-4">{rank.description}</p>
 
-                  <div className="space-y-2 mb-6">
-                    <h4 className="text-white font-semibold text-sm">Included Perks:</h4>
-                    <ul className="space-y-1">
-                      {rank.perks.slice(0, 3).map((perk, perkIndex) => (
-                        <li key={perkIndex} className="text-muted-foreground text-xs flex items-center space-x-2">
-                          <div className="w-1 h-1 bg-primary rounded-full" />
-                          <span>{perk}</span>
-                        </li>
-                      ))}
-                      {rank.perks.length > 3 && (
-                        <li className="text-primary text-xs">+{rank.perks.length - 3} more perks</li>
+                    <div className="flex items-center space-x-2 mb-4">
+                      <span className="text-2xl font-bold text-primary">${rank.price}</span>
+                      {rank.originalPrice && (
+                        <span className="text-muted-foreground line-through">${rank.originalPrice}</span>
                       )}
-                    </ul>
-                  </div>
+                    </div>
 
-                  <Button className="w-full gradient-primary text-white hover-glow">Purchase Rank</Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
+                    <div className="space-y-2 mb-6">
+                      <h4 className="text-white font-semibold text-sm">Included Perks:</h4>
+                      <ul className="space-y-1">
+                        {rank.perks.slice(0, 3).map((perk, perkIndex) => (
+                          <li key={perkIndex} className="text-muted-foreground text-xs flex items-center space-x-2">
+                            <div className="w-1 h-1 bg-primary rounded-full" />
+                            <span>{perk}</span>
+                          </li>
+                        ))}
+                        {rank.perks.length > 3 && (
+                          <li className="text-primary text-xs">+{rank.perks.length - 3} more perks</li>
+                        )}
+                      </ul>
+                    </div>
 
-        {/* Rank Upgrades */}
-        <section>
-          <div className="flex items-center space-x-2 mb-8">
-            <Zap className="w-6 h-6 text-secondary" />
-            <h2 className="text-3xl font-bold text-white">Rank Upgrades</h2>
-            <Badge className="bg-secondary text-white">Save Money</Badge>
-          </div>
+                    <Button className="w-full gradient-primary text-white hover-glow">Purchase Rank</Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </section>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {rankUpgrades.map((upgrade, index) => (
-              <ProductCard key={index} {...upgrade} />
-            ))}
-          </div>
-        </section>
+          {/* Rank Upgrades */}
+          <section>
+            <div className="flex items-center space-x-2 mb-8">
+              <Zap className="w-6 h-6 text-secondary" />
+              <h2 className="text-3xl font-bold text-white">Rank Upgrades</h2>
+              <Badge className="bg-secondary text-white">Save Money</Badge>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {rankUpgrades.map((upgrade, index) => (
+                <ProductCard key={index} {...upgrade} />
+              ))}
+            </div>
+          </section>
+        </div>
       </main>
     </div>
   )

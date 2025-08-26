@@ -20,7 +20,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Brand */}
           <div className="space-y-4">
-            <h3 className="text-xl font-bold text-white">MinecraftStore</h3>
+            <h3 className="text-xl font-bold text-white">Frost Network</h3>
             <p className="text-muted-foreground text-sm">
               Premium Minecraft server store with instant delivery and secure payments.
             </p>
@@ -111,7 +111,7 @@ export function Footer() {
         {/* Copyright */}
         <div className="text-center">
           <p className="text-muted-foreground text-sm">
-            © 2024 MinecraftStore. Built with love by{" "}
+            © 2024 Frost Network. Built with love by{" "}
             <span className="text-transparent bg-gradient-to-r from-primary to-purple-500 bg-clip-text font-semibold">
               Max67
             </span>

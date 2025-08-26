@@ -6,6 +6,7 @@ import { ScrollAnimation, SpotlightEffect } from "@/components/scroll-animations
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Star, Zap, Shield } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 const featuredProducts = [
   {
@@ -61,92 +62,122 @@ export default function HomePage() {
 
       <HeroSection />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Main Content */}
-          <div className="lg:col-span-3 space-y-12">
-            {/* Featured Products */}
-            <ScrollAnimation delay={200}>
-              <section>
-                <div className="flex items-center space-x-2 mb-8">
-                  <Star className="w-6 h-6 text-primary" />
-                  <h2 className="text-3xl font-bold text-white">Featured Products</h2>
-                  <Badge className="gradient-primary text-white">Hot</Badge>
-                </div>
+      {/* Hero background continuation */}
+      <main className="relative">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="grid grid-cols-1 xl:grid-cols-4 gap-12">
+            {/* Main Content Area - 3 columns on XL screens */}
+            <div className="xl:col-span-3 space-y-12">
+              {/* Featured Products */}
+              <ScrollAnimation delay={200}>
+                <section>
+                  <div className="flex items-center space-x-2 mb-8">
+                    <Star className="w-6 h-6 text-primary" />
+                    <h2 className="text-3xl font-bold text-white">Featured Products</h2>
+                    <Badge className="gradient-primary text-white">Hot</Badge>
+                  </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                  {featuredProducts.map((product, index) => (
-                    <ScrollAnimation key={index} delay={300 + index * 100}>
-                      <SpotlightEffect>
-                        <ProductCard {...product} />
-                      </SpotlightEffect>
-                    </ScrollAnimation>
-                  ))}
-                </div>
-              </section>
-            </ScrollAnimation>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {featuredProducts.map((product, index) => (
+                      <ScrollAnimation key={index} delay={300 + index * 100}>
+                        <SpotlightEffect>
+                          <ProductCard {...product} />
+                        </SpotlightEffect>
+                      </ScrollAnimation>
+                    ))}
+                  </div>
+                </section>
+              </ScrollAnimation>
 
-            {/* All Products */}
-            <ScrollAnimation delay={400}>
-              <section>
-                <div className="flex items-center space-x-2 mb-8">
-                  <Zap className="w-6 h-6 text-secondary" />
-                  <h2 className="text-3xl font-bold text-white">All Products</h2>
-                </div>
+              {/* All Products */}
+              <ScrollAnimation delay={400}>
+                <section>
+                  <div className="flex items-center space-x-2 mb-8">
+                    <Zap className="w-6 h-6 text-secondary" />
+                    <h2 className="text-3xl font-bold text-white">All Products</h2>
+                  </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                  {allProducts.map((product, index) => (
-                    <ScrollAnimation key={index} delay={500 + index * 100}>
-                      <SpotlightEffect>
-                        <ProductCard {...product} />
-                      </SpotlightEffect>
-                    </ScrollAnimation>
-                  ))}
-                </div>
-              </section>
-            </ScrollAnimation>
-          </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {allProducts.map((product, index) => (
+                      <ScrollAnimation key={index} delay={500 + index * 100}>
+                        <SpotlightEffect>
+                          <ProductCard {...product} />
+                        </SpotlightEffect>
+                      </ScrollAnimation>
+                    ))}
+                  </div>
+                </section>
+              </ScrollAnimation>
+            </div>
 
-          {/* Sidebar */}
-          <div className="lg:col-span-1 space-y-6">
-            {/* Top Selling Rank Highlight */}
-            <ScrollAnimation delay={600} direction="right">
-              <SpotlightEffect>
-                <Card className="glass border-white/20">
-                  <CardHeader>
-                    <CardTitle className="text-white flex items-center space-x-2">
-                      <Shield className="w-5 h-5 text-primary" />
-                      <span>Top Selling Rank</span>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-center">
-                      <img
-                        src="/minecraft-diamond-rank-crown.png"
-                        alt="Diamond Rank"
-                        className="w-20 h-20 mx-auto mb-4 rounded-lg"
-                      />
-                      <h3 className="text-xl font-bold text-white mb-2">Diamond Rank</h3>
-                      <p className="text-muted-foreground text-sm mb-4">
-                        The most popular rank with exclusive perks and commands.
-                      </p>
-                      <div className="flex items-center justify-center space-x-2 mb-4">
-                        <span className="text-2xl font-bold text-primary">$49.99</span>
-                        <span className="text-muted-foreground line-through">$69.99</span>
-                      </div>
-                      <Badge className="gradient-primary text-white mb-4">30% OFF</Badge>
-                    </div>
-                  </CardContent>
-                </Card>
-              </SpotlightEffect>
-            </ScrollAnimation>
+            {/* Sidebar - 1 column on XL screens */}
+            <div className="xl:col-span-1 xl:pl-4">
+              <div className="sticky top-24 space-y-8">
+                {/* Top Selling Rank Highlight */}
+                <ScrollAnimation delay={600} direction="right">
+                  <SpotlightEffect>
+                    <Card className="glass border-white/20 overflow-hidden">
+                      <CardHeader className="pb-4">
+                        <CardTitle className="text-white flex items-center space-x-2">
+                          <Shield className="w-5 h-5 text-primary" />
+                          <span>Top Selling Rank</span>
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div className="text-center">
+                          <div className="relative mb-4">
+                            <img
+                              src="/minecraft-diamond-rank-crown.png"
+                              alt="Diamond Rank"
+                              className="w-24 h-24 mx-auto rounded-lg shadow-lg"
+                            />
+                            <div className="absolute -top-2 -right-2">
+                              <Badge className="gradient-primary text-white text-xs">30% OFF</Badge>
+                            </div>
+                          </div>
+                          <h3 className="text-xl font-bold text-white mb-2">Diamond Rank</h3>
+                          <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
+                            The most popular rank with exclusive perks, god mode, and unlimited homes.
+                          </p>
+                          <div className="flex items-center justify-center space-x-2 mb-4">
+                            <span className="text-2xl font-bold text-primary">$49.99</span>
+                            <span className="text-muted-foreground line-through text-lg">$69.99</span>
+                          </div>
+                          <Button className="w-full gradient-primary text-white hover-glow">Get Now</Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </SpotlightEffect>
+                </ScrollAnimation>
 
-            {/* Leaderboard */}
-            <ScrollAnimation delay={700} direction="right">
-              <SpotlightEffect>
-                <Leaderboard />
-              </SpotlightEffect>
-            </ScrollAnimation>
+                {/* Leaderboard */}
+                <ScrollAnimation delay={700} direction="right">
+                  <SpotlightEffect>
+                    <Leaderboard />
+                  </SpotlightEffect>
+                </ScrollAnimation>
+
+                <ScrollAnimation delay={800} direction="right">
+                  <SpotlightEffect>
+                    <Card className="glass border-white/20 bg-gradient-to-br from-primary/10 to-secondary/10">
+                      <CardContent className="p-6 text-center">
+                        <div className="mb-4">
+                          <Badge className="gradient-primary text-white mb-2">Limited Time</Badge>
+                          <h3 className="text-lg font-bold text-white mb-2">Weekend Sale</h3>
+                          <p className="text-muted-foreground text-sm">Get 25% off all crate keys this weekend only!</p>
+                        </div>
+                        <Button
+                          variant="outline"
+                          className="glass border-white/30 text-white hover:bg-white/20 bg-transparent"
+                        >
+                          View Deals
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </SpotlightEffect>
+                </ScrollAnimation>
+              </div>
+            </div>
           </div>
         </div>
       </main>

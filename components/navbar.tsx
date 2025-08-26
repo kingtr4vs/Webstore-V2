@@ -26,15 +26,16 @@ export function Navbar() {
   }
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/20">
+    <nav className="relative top-0 left-0 right-0 z-50 glass border-b border-white/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">MC</span>
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-[#1E90FF] to-[#663399]"></div>
+              <span className="relative text-white font-bold text-sm z-10">FS</span>
             </div>
-            <span className="text-white font-bold text-xl">CraftStore</span>
+            <span className="text-white font-bold text-xl">Frost Network</span>
           </Link>
 
           {/* Desktop Navigation */}

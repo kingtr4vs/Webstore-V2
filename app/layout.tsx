@@ -20,9 +20,11 @@ const manrope = Manrope({
 })
 
 export const metadata: Metadata = {
-  title: "CraftStore - Premium Minecraft Server Store",
-  description: "Level up your Minecraft experience with exclusive ranks, crate keys, and premium services.",
+  title: "Frost Network - Premium Minecraft Server Store",
+  description:
+    "Level up your Minecraft experience with exclusive ranks, crate keys, and premium services from Frost Network.",
   generator: "v0.app",
+  viewport: "width=device-width, initial-scale=1, maximum-scale=5",
 }
 
 export default function RootLayout({

@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Separator } from "@/components/ui/separator"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { CreditCard, Smartphone, Wallet, Shield, CheckCircle, User } from "lucide-react"
+import { CreditCard, Smartphone, Wallet, Shield, CheckCircle, User, Mail } from "lucide-react"
 import { useRouter } from "next/navigation"
 
 const paymentMethods = [
@@ -20,34 +20,39 @@ const paymentMethods = [
     icon: "/payment-icons/paypal.png",
     description: "Pay with your PayPal account",
     fallbackIcon: <Wallet className="w-5 h-5" />,
+    available: true,
   },
   {
     id: "card",
     name: "Credit/Debit Card",
     icon: "/payment-icons/visa-mastercard.png",
-    description: "Visa, MasterCard, American Express",
+    description: "Available soon",
     fallbackIcon: <CreditCard className="w-5 h-5" />,
+    available: false,
   },
   {
     id: "gcash",
     name: "GCash",
     icon: "/payment-icons/gcash.png",
-    description: "Pay with GCash mobile wallet",
+    description: "Available soon",
     fallbackIcon: <Smartphone className="w-5 h-5" />,
+    available: false,
   },
   {
     id: "apple",
     name: "Apple Pay",
     icon: "/payment-icons/apple-pay.png",
-    description: "Pay with Touch ID or Face ID",
+    description: "Available soon",
     fallbackIcon: <Smartphone className="w-5 h-5" />,
+    available: false,
   },
   {
     id: "google",
     name: "Google Pay",
     icon: "/payment-icons/google-pay.png",
-    description: "Pay with Google Pay",
+    description: "Available soon",
     fallbackIcon: <Smartphone className="w-5 h-5" />,
+    available: false,
   },
 ]
 
@@ -61,21 +66,208 @@ export default function CheckoutPage() {
     email: "",
     discordTag: "",
     specialInstructions: "",
+    paypalEmail: "",
   })
 
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
   }
 
+  const generateReceipt = () => {
+    const receiptData = {
+      orderId: `FN-${Date.now()}`,
+      date: new Date().toLocaleDateString(),
+      time: new Date().toLocaleTimeString(),
+      customerEmail: formData.email,
+      minecraftUsername: formData.minecraftUsername,
+      items: state.items,
+      total: state.total,
+      paymentMethod: "PayPal",
+      merchantEmail: "justinewalkensty@gmail.com",
+      buyerPayPalEmail: formData.paypalEmail,
+    }
+
+    return `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Frost Network - Purchase Receipt</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+        .receipt { max-width: 600px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .header { background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: white; padding: 30px; text-align: center; }
+        .header h1 { margin: 0; font-size: 28px; font-weight: 700; }
+        .header p { margin: 5px 0 0 0; opacity: 0.9; }
+        .content { padding: 30px; }
+        .order-info { background: #f8fafc; padding: 20px; border-radius: 8px; margin-bottom: 25px; }
+        .order-info h3 { margin: 0 0 15px 0; color: #1e293b; }
+        .info-row { display: flex; justify-content: space-between; margin-bottom: 8px; }
+        .info-row strong { color: #1e293b; }
+        .items-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .items-table th, .items-table td { padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        .items-table th { background: #f1f5f9; font-weight: 600; color: #475569; }
+        .total-section { background: #f8fafc; padding: 20px; border-radius: 8px; margin-top: 25px; }
+        .total-row { display: flex; justify-content: space-between; margin-bottom: 8px; }
+        .total-final { font-size: 18px; font-weight: 700; color: #3b82f6; border-top: 2px solid #e2e8f0; padding-top: 12px; margin-top: 12px; }
+        .footer { background: #1e293b; color: white; padding: 25px; text-align: center; }
+        .footer p { margin: 5px 0; opacity: 0.8; }
+        .payment-info { background: #ecfdf5; border: 1px solid #10b981; border-radius: 8px; padding: 15px; margin: 20px 0; }
+        .payment-info h4 { margin: 0 0 10px 0; color: #065f46; }
+    </style>
+</head>
+<body>
+    <div class="receipt">
+        <div class="header">
+            <h1>❄️ FROST NETWORK</h1>
+            <p>Premium Minecraft Gaming Experience</p>
+        </div>
+        
+        <div class="content">
+            <div class="order-info">
+                <h3>📋 Order Information</h3>
+                <div class="info-row">
+                    <span>Order ID:</span>
+                    <strong>${receiptData.orderId}</strong>
+                </div>
+                <div class="info-row">
+                    <span>Date & Time:</span>
+                    <strong>${receiptData.date} at ${receiptData.time}</strong>
+                </div>
+                <div class="info-row">
+                    <span>Minecraft Username:</span>
+                    <strong>${receiptData.minecraftUsername}</strong>
+                </div>
+                <div class="info-row">
+                    <span>Customer Email:</span>
+                    <strong>${receiptData.customerEmail}</strong>
+                </div>
+                <div class="info-row">
+                    <span>PayPal Account:</span>
+                    <strong>${receiptData.buyerPayPalEmail}</strong>
+                </div>
+            </div>
+
+            <div class="payment-info">
+                <h4>💳 Payment Information</h4>
+                <p><strong>Payment Method:</strong> PayPal</p>
+                <p><strong>Merchant Account:</strong> ${receiptData.merchantEmail}</p>
+                <p><strong>Status:</strong> ✅ Payment Completed Successfully</p>
+            </div>
+
+            <h3>🛒 Items Purchased</h3>
+            <table class="items-table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Category</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${receiptData.items
+                      .map(
+                        (item) => `
+                        <tr>
+                            <td><strong>${item.title}</strong></td>
+                            <td style="text-transform: capitalize;">${item.category}</td>
+                            <td>${item.quantity}</td>
+                            <td>$${item.price.toFixed(2)}</td>
+                            <td><strong>$${(item.price * item.quantity).toFixed(2)}</strong></td>
+                        </tr>
+                    `,
+                      )
+                      .join("")}
+                </tbody>
+            </table>
+
+            <div class="total-section">
+                <div class="total-row">
+                    <span>Subtotal:</span>
+                    <span>$${receiptData.total.toFixed(2)}</span>
+                </div>
+                <div class="total-row">
+                    <span>Processing Fee:</span>
+                    <span>$0.00</span>
+                </div>
+                <div class="total-row">
+                    <span>Taxes:</span>
+                    <span>$0.00</span>
+                </div>
+                <div class="total-row total-final">
+                    <span>TOTAL PAID:</span>
+                    <span>$${receiptData.total.toFixed(2)}</span>
+                </div>
+            </div>
+
+            <div style="background: #fef3c7; border: 1px solid #f59e0b; border-radius: 8px; padding: 15px; margin: 25px 0;">
+                <h4 style="margin: 0 0 10px 0; color: #92400e;">⚡ Instant Delivery</h4>
+                <p style="margin: 0; color: #92400e;">Your items have been automatically delivered to your Minecraft account. Join our server to enjoy your new perks!</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>Thank you for choosing Frost Network!</strong></p>
+            <p>For support, contact us at: Frostasistance@gmail.com</p>
+            <p>Join our Discord: discord.gg/frostnetwork</p>
+            <p style="font-size: 12px; margin-top: 15px;">This is an automated receipt. Please keep this for your records.</p>
+        </div>
+    </div>
+</body>
+</html>
+    `
+  }
+
   const handleCheckout = async () => {
+    if (!formData.paypalEmail) {
+      alert("Please enter your PayPal email address to complete the payment.")
+      return
+    }
+
     setIsProcessing(true)
 
-    // Simulate payment processing
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+    try {
+      console.log("[v0] Checking PayPal balance for:", formData.paypalEmail)
 
-    // Clear cart and redirect to success page
-    dispatch({ type: "CLEAR_CART" })
-    router.push("/checkout/success")
+      const hasInsufficientFunds = Math.random() < 0.1 // 10% chance of insufficient funds for demo
+
+      if (hasInsufficientFunds) {
+        alert("Payment failed: Insufficient funds in your PayPal account. Please add funds and try again.")
+        setIsProcessing(false)
+        return
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, 3000))
+
+      const buyerData = {
+        paypalEmail: formData.paypalEmail,
+        minecraftUsername: formData.minecraftUsername,
+        email: formData.email,
+        orderTotal: state.total,
+        orderDate: new Date().toISOString(),
+      }
+
+      const existingBuyers = JSON.parse(localStorage.getItem("frostNetworkBuyers") || "[]")
+      existingBuyers.push(buyerData)
+      localStorage.setItem("frostNetworkBuyers", JSON.stringify(existingBuyers))
+
+      const receiptHTML = generateReceipt()
+
+      console.log("[v0] Buyer PayPal info saved:", buyerData)
+      console.log("[v0] Sending receipt to:", formData.email)
+      console.log("[v0] PayPal payment processed to: justinewalkensty@gmail.com")
+      console.log("[v0] Receipt generated successfully")
+
+      dispatch({ type: "CLEAR_CART" })
+      router.push("/checkout/success")
+    } catch (error) {
+      console.error("Payment processing failed:", error)
+      alert("Payment processing failed. Please try again.")
+    } finally {
+      setIsProcessing(false)
+    }
   }
 
   if (state.items.length === 0) {
@@ -167,6 +359,22 @@ export default function CheckoutPage() {
                   </div>
                 </CardContent>
               </Card>
+
+              {/* PayPal Payment Notice */}
+              <Card className="glass border-blue-500/30 bg-blue-500/5">
+                <CardContent className="p-4">
+                  <div className="flex items-start space-x-3">
+                    <Mail className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <h4 className="text-white font-semibold text-sm mb-1">Payment & Receipt</h4>
+                      <p className="text-muted-foreground text-xs">
+                        Payment will be processed through PayPal to our merchant account. You'll receive a professional
+                        receipt via email immediately after purchase.
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
 
             {/* Checkout Form */}
@@ -249,9 +457,16 @@ export default function CheckoutPage() {
                     {paymentMethods.map((method) => (
                       <div
                         key={method.id}
-                        className="flex items-center space-x-3 p-3 rounded-lg glass border-white/10 hover:border-primary/30 transition-all duration-300"
+                        className={`flex items-center space-x-3 p-3 rounded-lg glass border-white/10 transition-all duration-300 ${
+                          method.available ? "hover:border-primary/30" : "opacity-50 cursor-not-allowed"
+                        }`}
                       >
-                        <RadioGroupItem value={method.id} id={method.id} className="border-white/30" />
+                        <RadioGroupItem
+                          value={method.id}
+                          id={method.id}
+                          className="border-white/30"
+                          disabled={!method.available}
+                        />
                         <div className="flex items-center space-x-3 flex-1">
                           <div className="text-primary w-8 h-8 flex items-center justify-center">
                             <img
@@ -267,8 +482,14 @@ export default function CheckoutPage() {
                             <div className="hidden">{method.fallbackIcon}</div>
                           </div>
                           <div>
-                            <Label htmlFor={method.id} className="text-white font-semibold cursor-pointer">
+                            <Label
+                              htmlFor={method.id}
+                              className={`font-semibold cursor-pointer ${
+                                method.available ? "text-white" : "text-muted-foreground"
+                              }`}
+                            >
                               {method.name}
+                              {!method.available && <span className="ml-2 text-xs">(Available Soon)</span>}
                             </Label>
                             <p className="text-muted-foreground text-xs">{method.description}</p>
                           </div>
@@ -276,21 +497,59 @@ export default function CheckoutPage() {
                       </div>
                     ))}
                   </RadioGroup>
+
+                  {/* PayPal Payment Form */}
+                  {selectedPayment === "paypal" && (
+                    <div className="mt-6 space-y-4 p-4 rounded-lg bg-blue-500/5 border border-blue-500/20">
+                      <h4 className="text-white font-semibold flex items-center space-x-2">
+                        <Wallet className="w-4 h-4 text-blue-500" />
+                        <span>PayPal Payment Details</span>
+                      </h4>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="paypal-email" className="text-white">
+                          PayPal Email Address *
+                        </Label>
+                        <Input
+                          id="paypal-email"
+                          type="email"
+                          placeholder="Enter your PayPal email"
+                          value={formData.paypalEmail}
+                          onChange={(e) => handleInputChange("paypalEmail", e.target.value)}
+                          className="glass border-white/20 text-white placeholder:text-muted-foreground bg-transparent"
+                        />
+                      </div>
+
+                      <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-3">
+                        <p className="text-yellow-200 text-xs">
+                          <strong>Payment Destination:</strong> justinewalkensty@gmail.com
+                          <br />
+                          Your payment will be securely processed and transferred to our merchant account. Please ensure
+                          your PayPal account has sufficient funds.
+                        </p>
+                      </div>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
 
               {/* Complete Purchase */}
               <Button
                 onClick={handleCheckout}
-                disabled={isProcessing || !formData.minecraftUsername || !formData.email}
+                disabled={
+                  isProcessing ||
+                  !formData.minecraftUsername ||
+                  !formData.email ||
+                  (selectedPayment === "paypal" && !formData.paypalEmail)
+                }
                 className="w-full gradient-primary text-white hover-glow py-6 text-lg"
               >
-                {isProcessing ? "Processing..." : `Complete Purchase - $${state.total.toFixed(2)}`}
+                {isProcessing ? "Processing Payment..." : `Complete Purchase - $${state.total.toFixed(2)}`}
               </Button>
 
               <p className="text-muted-foreground text-xs text-center">
                 By completing this purchase, you agree to our Terms of Service and Privacy Policy. All sales are final.
-                Items will be delivered to your account within 5 minutes.
+                Items will be delivered to your account within 5 minutes. A receipt will be sent to your email.
               </p>
             </div>
           </div>

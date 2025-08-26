@@ -113,17 +113,62 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  /* Added system font fallbacks for eco-friendly performance */
+  --font-sans: var(--font-geist), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
+  /* Added performance optimizations for eco-friendly design */
+  html {
+    font-size: 16px;
+    /* Enable hardware acceleration for smoother animations */
+    transform: translateZ(0);
+    /* Optimize scrolling performance */
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background text-foreground;
-    /* Added dark theme by default and gradient background */
+    /* Optimized background for better performance and eco-friendliness */
     background: radial-gradient(ellipse at bottom, rgba(30, 144, 255, 0.1) 0%, rgba(0, 0, 0, 1) 70%);
     min-height: 100vh;
+    /* Added performance optimizations for eco-friendly design */
+    font-display: swap;
+    text-rendering: optimizeSpeed;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Reduce layout thrashing */
+    contain: layout style paint;
+    /* Enable GPU acceleration */
+    will-change: auto;
+  }
+
+  /* Enhanced responsive typography for better mobile experience */
+  @media (max-width: 768px) {
+    html {
+      font-size: 14px;
+    }
+
+    /* Reduce blur effects on mobile for better performance */
+    .glass {
+      backdrop-filter: blur(5px) !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    html {
+      font-size: 13px;
+    }
+
+    /* Further reduce effects on small screens */
+    .glass {
+      backdrop-filter: blur(3px) !important;
+    }
   }
 }
 
@@ -133,12 +178,16 @@
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
+    /* Added performance optimization */
+    transform: translateZ(0);
   }
 
   .glass-strong {
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.3);
+    /* Added performance optimization */
+    transform: translateZ(0);
   }
 
   .gradient-primary {
@@ -149,27 +198,35 @@
     box-shadow: 0 0 20px rgba(30, 144, 255, 0.3);
   }
 
+  /* Optimized hover effects for better performance and reduced energy consumption */
   .hover-glow {
-    transition: all 0.3s ease;
+    transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+    will-change: transform, box-shadow;
+    /* Enable hardware acceleration */
+    transform: translateZ(0);
   }
 
   .hover-glow:hover {
     box-shadow: 0 0 30px rgba(30, 144, 255, 0.5);
-    transform: translateY(-2px);
+    transform: translateY(-2px) translateZ(0);
   }
 
   .bg-gradient-radial {
     background: radial-gradient(ellipse at center, var(--tw-gradient-stops));
   }
 
+  /* Optimized animations for eco-friendly performance */
   .animate-in {
     opacity: 1 !important;
-    transform: translateY(0) translateX(0) !important;
+    transform: translateY(0) translateX(0) translateZ(0) !important;
     filter: blur(0) !important;
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out, filter 0.2s ease-out;
   }
 
   .spotlight-glow {
     position: relative;
+    /* Added performance optimization */
+    transform: translateZ(0);
   }
 
   .spotlight-glow::before {
@@ -179,12 +236,72 @@
     background: linear-gradient(135deg, rgba(30, 144, 255, 0.2) 0%, rgba(102, 51, 153, 0.2) 100%);
     border-radius: inherit;
     opacity: 0;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.2s ease-out;
     pointer-events: none;
     filter: blur(20px);
+    /* Added performance optimization */
+    transform: translateZ(0);
   }
 
   .spotlight-glow:hover::before {
     opacity: 1;
+  }
+
+  /* Added responsive utilities for mobile-first design */
+  .container-responsive {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .container-responsive {
+      padding: 0 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container-responsive {
+      padding: 0 2rem;
+    }
+  }
+
+  /* Enhanced performance-optimized reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      transform: none !important;
+    }
+
+    /* Disable blur effects for users who prefer reduced motion */
+    .glass,
+    .glass-strong {
+      backdrop-filter: none !important;
+    }
+  }
+
+  /* Added performance optimizations for different screen sizes */
+  @media (max-width: 1024px) {
+    /* Reduce complex effects on tablets */
+    .spotlight-glow::before {
+      filter: blur(10px);
+    }
+  }
+
+  @media (max-width: 768px) {
+    /* Further reduce effects on mobile */
+    .spotlight-glow::before {
+      filter: blur(5px);
+    }
+
+    /* Simplify hover effects on touch devices */
+    .hover-glow:hover {
+      transform: translateY(-1px) translateZ(0);
+    }
   }
 }
