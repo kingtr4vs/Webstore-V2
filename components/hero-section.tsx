@@ -12,9 +12,8 @@ export function HeroSection() {
       <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
         <Badge className="mb-6 gradient-primary text-white px-4 py-2">#1 Minecraft Server Store</Badge>
 
-        <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+        <h1 className="text-5xl md:text-7xl font-bold gradient-primary bg-clip-text text-transparent mb-6 leading-tight">
           FrostSurvival
-          <span className="gradient-primary bg-clip-text text-transparent">Minecraft Experience</span>
         </h1>
 
         <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
