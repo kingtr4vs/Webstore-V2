@@ -135,7 +135,7 @@
   body {
     @apply bg-background text-foreground;
     /* Optimized background for better performance and eco-friendliness */
-    background: radial-gradient(ellipse at bottom, rgba(30, 144, 255, 0.1) 0%, rgba(0, 0, 0, 1) 70%);
+    background: radial-gradient(135deg, #1E90FF 0%, #663399 100%);
     min-height: 100vh;
     /* Added performance optimizations for eco-friendly design */
     font-display: swap;
