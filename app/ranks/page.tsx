@@ -97,23 +97,19 @@ export default function RanksPage() {
       <Navbar />
 
       {/* Hero Section with seamless background */}
-      <section className="pt-24 pb-16 relative overflow-hidden min-h-[60vh] flex items-center">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-secondary/20" />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/10 rounded-full blur-3xl" />
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Badge className="mb-6 gradient-primary text-white px-4 py-2">Server Ranks</Badge>
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-            Choose Your
-            <span className="block">Rank</span>
-          </h1>
-          <p className="text-xl text-white/80 max-w-2xl mx-auto">
-            Unlock exclusive perks, commands, and privileges with our premium server ranks. Each rank builds upon the
-            previous one.
-          </p>
-        </div>
-      </section>
+        <section className="pt-24 pb-16 relative overflow-hidden min-h-[60vh] flex items-center">
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <Badge className="mb-6 gradient-primary text-white px-4 py-2">Crate Keys</Badge>
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
+              Unlock Amazing
+              <span className="block gradient-primary bg-clip-text text-transparent">Rewards</span>
+            </h1>
+            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+              Open crates to discover rare items, powerful weapons, exclusive cosmetics, and valuable rewards. Each key
+              tier offers better chances for epic loot.
+            </p>
+          </div>
+        </section>
 
       <main className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         {/* Extended hero background overlay */}
