@@ -16,7 +16,7 @@ export function HeroSection() {
           <span className="bg-gradient-to-r from-[#1E90FF] to-[#663399] bg-clip-text text-transparent">
             Frost Network
         </span>
-          <span className="bg-gradient-to-r from-[#1E90FF] to-[#663399] bg-clip-text text-transparent">     Minecraft Experience</span>
+          <span className="bg-gradient-to-r from-[#1E90FF] to-[#663399] bg-clip-text text-transparent"></span>
         </h1>
 
         <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
