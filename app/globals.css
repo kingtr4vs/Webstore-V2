@@ -42,7 +42,7 @@
 
 .dark {
   /* Dark mode tokens remain the same since we're using dark theme by default */
-  --background: #663399;
+  --background: #000000;
   --foreground: #1e90ff;
   --card: rgba(255, 255, 255, 0.1);
   --card-foreground: #1e90ff;
