@@ -5,22 +5,22 @@
 
 :root {
   /* Updated color tokens for dark gaming theme with glassmorphism */
-  --background: #000000;
-  --foreground: #ffffff;
+  --background: #663399;
+  --foreground: #1e90ff;
   --card: rgba(255, 255, 255, 0.1);
-  --card-foreground: #ffffff;
+  --card-foreground: #1e90ff;
   --popover: rgba(255, 255, 255, 0.15);
-  --popover-foreground: #ffffff;
+  --popover-foreground: #1e90ff;
   --primary: #1e90ff;
-  --primary-foreground: #ffffff;
+  --primary-foreground: #1e90ff;
   --secondary: #663399;
-  --secondary-foreground: #ffffff;
+  --secondary-foreground: #1e90ff;
   --muted: rgba(255, 255, 255, 0.05);
   --muted-foreground: rgba(255, 255, 255, 0.7);
   --accent: #9b59b6;
-  --accent-foreground: #ffffff;
+  --accent-foreground: #1e90ff;
   --destructive: #e63946;
-  --destructive-foreground: #ffffff;
+  --destructive-foreground: #1e90ff;
   --border: rgba(255, 255, 255, 0.2);
   --input: rgba(255, 255, 255, 0.1);
   --ring: rgba(30, 144, 255, 0.5);
@@ -31,33 +31,33 @@
   --chart-5: #4b0082;
   --radius: 0.75rem;
   --sidebar: rgba(0, 0, 0, 0.8);
-  --sidebar-foreground: #ffffff;
+  --sidebar-foreground: #1e90ff;
   --sidebar-primary: #1e90ff;
-  --sidebar-primary-foreground: #ffffff;
+  --sidebar-primary-foreground: #1e90ff;
   --sidebar-accent: #663399;
-  --sidebar-accent-foreground: #ffffff;
+  --sidebar-accent-foreground: #1e90ff;
   --sidebar-border: rgba(255, 255, 255, 0.2);
   --sidebar-ring: rgba(30, 144, 255, 0.5);
 }
 
 .dark {
   /* Dark mode tokens remain the same since we're using dark theme by default */
-  --background: #000000;
-  --foreground: #ffffff;
+  --background: #663399;
+  --foreground: #1e90ff;
   --card: rgba(255, 255, 255, 0.1);
-  --card-foreground: #ffffff;
+  --card-foreground: #1e90ff;
   --popover: rgba(255, 255, 255, 0.15);
-  --popover-foreground: #ffffff;
+  --popover-foreground: #1e90ff;
   --primary: #1e90ff;
-  --primary-foreground: #ffffff;
+  --primary-foreground: #1e90ff;
   --secondary: #663399;
-  --secondary-foreground: #ffffff;
+  --secondary-foreground: #1e90ff;
   --muted: rgba(255, 255, 255, 0.05);
   --muted-foreground: rgba(255, 255, 255, 0.7);
   --accent: #9b59b6;
-  --accent-foreground: #ffffff;
+  --accent-foreground: #1e90ff;
   --destructive: #e63946;
-  --destructive-foreground: #ffffff;
+  --destructive-foreground: #1e90ff;
   --border: rgba(255, 255, 255, 0.2);
   --input: rgba(255, 255, 255, 0.1);
   --ring: rgba(30, 144, 255, 0.5);
@@ -67,11 +67,11 @@
   --chart-4: #00cfff;
   --chart-5: #4b0082;
   --sidebar: rgba(0, 0, 0, 0.8);
-  --sidebar-foreground: #ffffff;
+  --sidebar-foreground: #1e90ff;
   --sidebar-primary: #1e90ff;
-  --sidebar-primary-foreground: #ffffff;
+  --sidebar-primary-foreground: #1e90ff;
   --sidebar-accent: #663399;
-  --sidebar-accent-foreground: #ffffff;
+  --sidebar-accent-foreground: #1e90ff;
   --sidebar-border: rgba(255, 255, 255, 0.2);
   --sidebar-ring: rgba(30, 144, 255, 0.5);
 }
