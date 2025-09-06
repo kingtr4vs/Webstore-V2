@@ -11,16 +11,16 @@ import { Button } from "@/components/ui/button"
 const featuredProducts = [
   {
     title: "Diamond Rank",
-    price: "49.99",
-    originalPrice: "69.99",
+    price: "12.99",
+    originalPrice: "15.99",
     image: "/minecraft-diamond-rank-badge.png",
     description: "Unlock exclusive perks, commands, and priority access to the server.",
-    badge: "30% OFF",
+    badge: "20% OFF",
     popular: true,
   },
   {
     title: "Legendary Crate Key",
-    price: "24.99",
+    price: "4.99",
     image: "/minecraft-legendary-crate-key.png",
     description: "Open legendary crates for rare items, weapons, and exclusive cosmetics.",
     badge: "LIMITED",
@@ -36,16 +36,16 @@ const featuredProducts = [
 const allProducts = [
   ...featuredProducts,
   {
-    title: "Emerald Rank",
-    price: "29.99",
+    title: "Legend Rank (7days)",
+    price: "6.99",
     image: "/minecraft-emerald-rank-badge.png",
-    description: "Mid-tier rank with great perks and exclusive access to special areas.",
+    description: "Mid-tier rank with great perks and exclusive access to special items.",
   },
   {
     title: "Epic Crate Key",
-    price: "14.99",
+    price: "2.99",
     image: "/minecraft-epic-crate-key.png",
-    description: "Open epic crates for valuable items and rare enchantments.",
+    description: "Open epic crates for valuable items and rare cosmetics.",
   },
   {
     title: "Standard Unban",
@@ -132,7 +132,7 @@ export default function HomePage() {
                               className="w-24 h-24 mx-auto rounded-lg shadow-lg"
                             />
                             <div className="absolute -top-2 -right-2">
-                              <Badge className="gradient-primary text-white text-xs">30% OFF</Badge>
+                              <Badge className="gradient-primary text-white text-xs">20% OFF</Badge>
                             </div>
                           </div>
                           <h3 className="text-xl font-bold text-white mb-2">Diamond Rank</h3>
@@ -140,8 +140,8 @@ export default function HomePage() {
                             The most popular rank with exclusive perks, god mode, and unlimited homes.
                           </p>
                           <div className="flex items-center justify-center space-x-2 mb-4">
-                            <span className="text-2xl font-bold text-primary">$49.99</span>
-                            <span className="text-muted-foreground line-through text-lg">$69.99</span>
+                            <span className="text-2xl font-bold text-primary">$12.99</span>
+                            <span className="text-muted-foreground line-through text-lg">$15.99</span>
                           </div>
                           <Button className="w-full gradient-primary text-white hover-glow">Get Now</Button>
                         </div>
@@ -189,9 +189,9 @@ export default function HomePage() {
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center space-x-2 mb-4">
                 <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">MC</span>
+                  <span className="text-white font-bold text-sm">FN</span>
                 </div>
-                <span className="text-white font-bold text-xl">CraftStore</span>
+                <span className="text-white font-bold text-xl">FrostNetwork</span>
               </div>
               <p className="text-muted-foreground mb-4">
                 The premier destination for Minecraft server enhancements. Level up your gameplay with our exclusive
@@ -239,7 +239,7 @@ export default function HomePage() {
           </div>
 
           <div className="border-t border-white/20 mt-8 pt-8 text-center">
-            <p className="text-muted-foreground">© 2025 CraftStore — Built with love by Max67 ❤️</p>
+            <p className="text-muted-foreground">© 2025 FrostNetwork — Built with love by Max67 ❤️</p>
           </div>
         </div>
 
