@@ -5,6 +5,8 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Badge } from "@/components/ui/badge"
 import { useCart } from "@/contexts/cart-context"
 
+const DISCORD_INVITE_LINK = "https://discord.gg/frostnetwork"
+
 interface ProductCardProps {
   title: string
   price: string
@@ -29,20 +31,7 @@ export function ProductCard({
   const { dispatch } = useCart()
 
   const handleAddToCart = () => {
-    dispatch({
-      type: "ADD_ITEM",
-      payload: {
-        id: `${category}-${title.toLowerCase().replace(/\s+/g, "-")}`,
-        title,
-        price: Number.parseFloat(price),
-        originalPrice: originalPrice ? Number.parseFloat(originalPrice) : undefined,
-        image,
-        category,
-      },
-    })
-
-    // Open cart sidebar to show the added item
-    dispatch({ type: "OPEN_CART" })
+    window.open(DISCORD_INVITE_LINK, "_blank")
   }
 
   return (
@@ -80,7 +69,7 @@ export function ProductCard({
           onClick={handleAddToCart}
           className="w-full gradient-primary text-white hover-glow transition-all duration-300"
         >
-          Add to Cart
+          Buy Now
         </Button>
       </CardFooter>
     </Card>

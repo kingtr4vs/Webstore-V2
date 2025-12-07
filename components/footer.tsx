@@ -1,5 +1,8 @@
 import { Separator } from "@/components/ui/separator"
 import { MessageCircle, Mail, FileText, Shield } from "lucide-react"
+import Link from "next/link"
+
+const DISCORD_INVITE_LINK = "https://discord.gg/frostnetwork"
 
 export function Footer() {
   const paymentMethods = [
@@ -30,38 +33,40 @@ export function Footer() {
           <div className="space-y-4">
             <h4 className="text-white font-semibold">Quick Links</h4>
             <div className="space-y-2">
-              <a href="/ranks" className="block text-muted-foreground hover:text-primary transition-colors text-sm">
+              <Link href="/ranks" className="block text-muted-foreground hover:text-primary transition-colors text-sm">
                 Ranks
-              </a>
-              <a href="/keys" className="block text-muted-foreground hover:text-primary transition-colors text-sm">
+              </Link>
+              <Link href="/keys" className="block text-muted-foreground hover:text-primary transition-colors text-sm">
                 Crate Keys
-              </a>
-              <a href="/unbans" className="block text-muted-foreground hover:text-primary transition-colors text-sm">
+              </Link>
+              <Link href="/unbans" className="block text-muted-foreground hover:text-primary transition-colors text-sm">
                 Unbans
-              </a>
+              </Link>
             </div>
           </div>
 
-          {/* Legal */}
+          {/* Legal - Updated links to actual pages and Discord */}
           <div className="space-y-4">
             <h4 className="text-white font-semibold">Legal</h4>
             <div className="space-y-2">
-              <a
+              <Link
                 href="/privacy"
                 className="flex items-center space-x-2 text-muted-foreground hover:text-primary transition-colors text-sm"
               >
                 <Shield className="w-4 h-4" />
                 <span>Privacy Policy</span>
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/terms"
                 className="flex items-center space-x-2 text-muted-foreground hover:text-primary transition-colors text-sm"
               >
                 <FileText className="w-4 h-4" />
                 <span>Terms of Service</span>
-              </a>
+              </Link>
               <a
-                href="/contact"
+                href={DISCORD_INVITE_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center space-x-2 text-muted-foreground hover:text-primary transition-colors text-sm"
               >
                 <Mail className="w-4 h-4" />
@@ -75,7 +80,7 @@ export function Footer() {
             <h4 className="text-white font-semibold">Community</h4>
             <div className="space-y-2">
               <a
-                href="https://discord.gg/minecraft"
+                href={DISCORD_INVITE_LINK}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center space-x-2 text-muted-foreground hover:text-primary transition-colors text-sm"
@@ -111,7 +116,7 @@ export function Footer() {
         {/* Copyright */}
         <div className="text-center">
           <p className="text-muted-foreground text-sm">
-            © 2024 Frost Network. Built with love by{" "}
+            © 2025 Frost Network. Built with love by{" "}
             <span className="text-transparent bg-gradient-to-r from-primary to-purple-500 bg-clip-text font-semibold">
               Max67
             </span>

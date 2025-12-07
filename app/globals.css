@@ -5,22 +5,22 @@
 
 :root {
   /* Updated color tokens for dark gaming theme with glassmorphism */
-  --background: #000000, #1e90ff, #663399;
-  --foreground: #1e90ff;
+  --background: #000000;
+  --foreground: #ffffff;
   --card: rgba(255, 255, 255, 0.1);
-  --card-foreground: #1e90ff;
+  --card-foreground: #ffffff;
   --popover: rgba(255, 255, 255, 0.15);
-  --popover-foreground: #1e90ff;
+  --popover-foreground: #ffffff;
   --primary: #1e90ff;
-  --primary-foreground: #1e90ff;
+  --primary-foreground: #ffffff;
   --secondary: #663399;
-  --secondary-foreground: #1e90ff;
+  --secondary-foreground: #ffffff;
   --muted: rgba(255, 255, 255, 0.05);
   --muted-foreground: rgba(255, 255, 255, 0.7);
   --accent: #9b59b6;
-  --accent-foreground: #1e90ff;
+  --accent-foreground: #ffffff;
   --destructive: #e63946;
-  --destructive-foreground: #1e90ff;
+  --destructive-foreground: #ffffff;
   --border: rgba(255, 255, 255, 0.2);
   --input: rgba(255, 255, 255, 0.1);
   --ring: rgba(30, 144, 255, 0.5);
@@ -31,33 +31,32 @@
   --chart-5: #4b0082;
   --radius: 0.75rem;
   --sidebar: rgba(0, 0, 0, 0.8);
-  --sidebar-foreground: #1e90ff;
+  --sidebar-foreground: #ffffff;
   --sidebar-primary: #1e90ff;
-  --sidebar-primary-foreground: #1e90ff;
+  --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #663399;
-  --sidebar-accent-foreground: #1e90ff;
+  --sidebar-accent-foreground: #ffffff;
   --sidebar-border: rgba(255, 255, 255, 0.2);
   --sidebar-ring: rgba(30, 144, 255, 0.5);
 }
 
 .dark {
-  /* Dark mode tokens remain the same since we're using dark theme by default */
   --background: #000000;
-  --foreground: #1e90ff;
+  --foreground: #ffffff;
   --card: rgba(255, 255, 255, 0.1);
-  --card-foreground: #1e90ff;
+  --card-foreground: #ffffff;
   --popover: rgba(255, 255, 255, 0.15);
-  --popover-foreground: #1e90ff;
+  --popover-foreground: #ffffff;
   --primary: #1e90ff;
-  --primary-foreground: #1e90ff;
+  --primary-foreground: #ffffff;
   --secondary: #663399;
-  --secondary-foreground: #1e90ff;
+  --secondary-foreground: #ffffff;
   --muted: rgba(255, 255, 255, 0.05);
   --muted-foreground: rgba(255, 255, 255, 0.7);
   --accent: #9b59b6;
-  --accent-foreground: #1e90ff;
+  --accent-foreground: #ffffff;
   --destructive: #e63946;
-  --destructive-foreground: #1e90ff;
+  --destructive-foreground: #ffffff;
   --border: rgba(255, 255, 255, 0.2);
   --input: rgba(255, 255, 255, 0.1);
   --ring: rgba(30, 144, 255, 0.5);
@@ -67,11 +66,11 @@
   --chart-4: #00cfff;
   --chart-5: #4b0082;
   --sidebar: rgba(0, 0, 0, 0.8);
-  --sidebar-foreground: #1e90ff;
+  --sidebar-foreground: #ffffff;
   --sidebar-primary: #1e90ff;
-  --sidebar-primary-foreground: #1e90ff;
+  --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #663399;
-  --sidebar-accent-foreground: #1e90ff;
+  --sidebar-accent-foreground: #ffffff;
   --sidebar-border: rgba(255, 255, 255, 0.2);
   --sidebar-ring: rgba(30, 144, 255, 0.5);
 }
@@ -134,8 +133,8 @@
 
   body {
     @apply bg-background text-foreground;
-    /* Optimized background for better performance and eco-friendliness */
-    background: radial-gradient(135deg, #1E90FF 0%, #663399 100%);
+    /* Changed from gradient to solid black background */
+    background: #000000;
     min-height: 100vh;
     /* Added performance optimizations for eco-friendly design */
     font-display: swap;
@@ -267,6 +266,40 @@
     }
   }
 
+  /* Added water ripple animation styles */
+  .water-ripple {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(30, 144, 255, 0.4) 0%, rgba(102, 51, 153, 0.2) 50%, transparent 70%);
+    transform: translate(-50%, -50%) scale(0);
+    pointer-events: none;
+    z-index: 9999;
+    animation: water-ripple 0.6s ease-out forwards;
+  }
+
+  @keyframes water-ripple {
+    0% {
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(4);
+      opacity: 0;
+    }
+  }
+
+  /* Added scrollbar hide utility for photo carousel */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
   /* Enhanced performance-optimized reduced motion support */
   @media (prefers-reduced-motion: reduce) {
     *,
@@ -282,6 +315,11 @@
     .glass,
     .glass-strong {
       backdrop-filter: none !important;
+    }
+
+    /* Disable water ripple for users who prefer reduced motion */
+    .water-ripple {
+      display: none !important;
     }
   }
 

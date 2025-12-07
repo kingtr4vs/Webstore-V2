@@ -15,6 +15,8 @@ import { useAuth } from "@/contexts/auth-context"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 
+const DISCORD_INVITE_LINK = "https://discord.gg/frostnetwork"
+
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const { state, logout } = useAuth()
@@ -28,41 +30,42 @@ export function Navbar() {
   return (
     <nav className="relative top-0 left-0 right-0 z-50 glass border-b border-white/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
+        <div className="flex items-center justify-between h-14 sm:h-16">
           <Link href="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-r from-[#1E90FF] to-[#663399]"></div>
-              <span className="relative text-white font-bold text-sm z-10">FS</span>
-            </div>
-            <span className="text-white font-bold text-xl">Frost Network</span>
+            <img src="/favicon.jpg" alt="Frost Network" className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg" />
+            <span className="text-white font-bold text-lg sm:text-xl">Frost Network</span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-white hover:text-primary transition-colors">
+          <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
+            <Link href="/" className="text-white hover:text-primary transition-colors text-sm lg:text-base">
               Home
             </Link>
-            <Link href="/ranks" className="text-white hover:text-primary transition-colors">
+            <Link href="/ranks" className="text-white hover:text-primary transition-colors text-sm lg:text-base">
               Ranks
             </Link>
-            <Link href="/keys" className="text-white hover:text-primary transition-colors">
+            <Link href="/keys" className="text-white hover:text-primary transition-colors text-sm lg:text-base">
               Keys
             </Link>
-            <Link href="/unbans" className="text-white hover:text-primary transition-colors">
+            <Link href="/unbans" className="text-white hover:text-primary transition-colors text-sm lg:text-base">
               Unbans
+            </Link>
+            <Link href="/partners" className="text-white hover:text-primary transition-colors text-sm lg:text-base">
+              Partners
             </Link>
           </div>
 
           {/* Right Side Actions */}
-          <div className="flex items-center space-x-4">
-            <Button
-              variant="outline"
-              size="sm"
-              className="hidden sm:flex glass border-white/30 text-white hover:bg-white/20 bg-transparent"
-            >
-              Discord
-            </Button>
+          <div className="flex items-center space-x-2 sm:space-x-4">
+            <a href={DISCORD_INVITE_LINK} target="_blank" rel="noopener noreferrer">
+              <Button
+                variant="outline"
+                size="sm"
+                className="hidden sm:flex glass border-white/30 text-white hover:bg-white/20 bg-transparent text-xs sm:text-sm"
+              >
+                Discord
+              </Button>
+            </a>
 
             <CartSidebar />
 
@@ -73,14 +76,14 @@ export function Navbar() {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="flex items-center space-x-2 text-white hover:bg-white/20"
+                    className="flex items-center space-x-1 sm:space-x-2 text-white hover:bg-white/20 px-2 sm:px-3"
                   >
                     <img
                       src={state.user.avatar || "/placeholder.svg"}
                       alt={`${state.user.minecraftUsername} avatar`}
-                      className="w-6 h-6 rounded"
+                      className="w-5 h-5 sm:w-6 sm:h-6 rounded"
                     />
-                    <span className="hidden sm:inline">{state.user.minecraftUsername}</span>
+                    <span className="hidden sm:inline text-sm">{state.user.minecraftUsername}</span>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="glass border-white/20 bg-black/90 backdrop-blur-xl">
@@ -108,7 +111,7 @@ export function Navbar() {
                     </>
                   )}
                   <DropdownMenuItem asChild>
-                    <Link href="/dashboard" className="flex items-center space-x-2 text-white hover:bg-white/20">
+                    <Link href="/settings" className="flex items-center space-x-2 text-white hover:bg-white/20">
                       <Settings className="w-4 h-4" />
                       <span>Settings</span>
                     </Link>
@@ -125,8 +128,8 @@ export function Navbar() {
               </DropdownMenu>
             ) : (
               <Link href="/login">
-                <Button size="sm" className="gradient-primary text-white hover-glow">
-                  <User className="w-4 h-4 mr-2" />
+                <Button size="sm" className="gradient-primary text-white hover-glow text-xs sm:text-sm px-3 sm:px-4">
+                  <User className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
                   Login
                 </Button>
               </Link>
@@ -136,7 +139,7 @@ export function Navbar() {
             <Button
               variant="ghost"
               size="sm"
-              className="md:hidden text-white"
+              className="md:hidden text-white p-2"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -148,25 +151,50 @@ export function Navbar() {
         {isMenuOpen && (
           <div className="md:hidden border-t border-white/20 py-4">
             <div className="flex flex-col space-y-4">
-              <Link href="/" className="text-white hover:text-primary transition-colors">
+              <Link
+                href="/"
+                className="text-white hover:text-primary transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
                 Home
               </Link>
-              <Link href="/ranks" className="text-white hover:text-primary transition-colors">
+              <Link
+                href="/ranks"
+                className="text-white hover:text-primary transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
                 Ranks
               </Link>
-              <Link href="/keys" className="text-white hover:text-primary transition-colors">
+              <Link
+                href="/keys"
+                className="text-white hover:text-primary transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
                 Keys
               </Link>
-              <Link href="/unbans" className="text-white hover:text-primary transition-colors">
+              <Link
+                href="/unbans"
+                className="text-white hover:text-primary transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
                 Unbans
               </Link>
-              <Button
-                variant="outline"
-                size="sm"
-                className="glass border-white/30 text-white hover:bg-white/20 w-fit bg-transparent"
+              <Link
+                href="/partners"
+                className="text-white hover:text-primary transition-colors"
+                onClick={() => setIsMenuOpen(false)}
               >
-                Discord
-              </Button>
+                Partners
+              </Link>
+              <a href={DISCORD_INVITE_LINK} target="_blank" rel="noopener noreferrer">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="glass border-white/30 text-white hover:bg-white/20 w-fit bg-transparent"
+                >
+                  Discord
+                </Button>
+              </a>
             </div>
           </div>
         )}

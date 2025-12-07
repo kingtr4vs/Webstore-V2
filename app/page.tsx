@@ -7,20 +7,23 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Star, Zap, Shield } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
+
+const DISCORD_INVITE_LINK = "https://discord.gg/frostnetwork"
 
 const featuredProducts = [
   {
     title: "Diamond Rank",
-    price: "12.99",
-    originalPrice: "15.99",
+    price: "49.99",
+    originalPrice: "69.99",
     image: "/minecraft-diamond-rank-badge.png",
     description: "Unlock exclusive perks, commands, and priority access to the server.",
-    badge: "20% OFF",
+    badge: "30% OFF",
     popular: true,
   },
   {
     title: "Legendary Crate Key",
-    price: "4.99",
+    price: "24.99",
     image: "/minecraft-legendary-crate-key.png",
     description: "Open legendary crates for rare items, weapons, and exclusive cosmetics.",
     badge: "LIMITED",
@@ -36,16 +39,16 @@ const featuredProducts = [
 const allProducts = [
   ...featuredProducts,
   {
-    title: "Legend Rank (7days)",
-    price: "6.99",
+    title: "Emerald Rank",
+    price: "29.99",
     image: "/minecraft-emerald-rank-badge.png",
-    description: "Mid-tier rank with great perks and exclusive access to special items.",
+    description: "Mid-tier rank with great perks and exclusive access to special areas.",
   },
   {
     title: "Epic Crate Key",
-    price: "2.99",
+    price: "14.99",
     image: "/minecraft-epic-crate-key.png",
-    description: "Open epic crates for valuable items and rare cosmetics.",
+    description: "Open epic crates for valuable items and rare enchantments.",
   },
   {
     title: "Standard Unban",
@@ -57,27 +60,26 @@ const allProducts = [
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-black">
       <Navbar />
 
       <HeroSection />
 
-      {/* Hero background continuation */}
-      <main className="relative">
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="grid grid-cols-1 xl:grid-cols-4 gap-12">
+      <main className="relative bg-black">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16">
+          <div className="grid grid-cols-1 xl:grid-cols-4 gap-6 sm:gap-8 xl:gap-12">
             {/* Main Content Area - 3 columns on XL screens */}
-            <div className="xl:col-span-3 space-y-12">
+            <div className="xl:col-span-3 space-y-8 sm:space-y-12">
               {/* Featured Products */}
               <ScrollAnimation delay={200}>
                 <section>
-                  <div className="flex items-center space-x-2 mb-8">
-                    <Star className="w-6 h-6 text-primary" />
-                    <h2 className="text-3xl font-bold text-white">Featured Products</h2>
-                    <Badge className="gradient-primary text-white">Hot</Badge>
+                  <div className="flex items-center space-x-2 mb-6 sm:mb-8">
+                    <Star className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
+                    <h2 className="text-2xl sm:text-3xl font-bold text-white">Featured Products</h2>
+                    <Badge className="gradient-primary text-white text-xs sm:text-sm">Hot</Badge>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                     {featuredProducts.map((product, index) => (
                       <ScrollAnimation key={index} delay={300 + index * 100}>
                         <SpotlightEffect>
@@ -92,12 +94,12 @@ export default function HomePage() {
               {/* All Products */}
               <ScrollAnimation delay={400}>
                 <section>
-                  <div className="flex items-center space-x-2 mb-8">
-                    <Zap className="w-6 h-6 text-secondary" />
-                    <h2 className="text-3xl font-bold text-white">All Products</h2>
+                  <div className="flex items-center space-x-2 mb-6 sm:mb-8">
+                    <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-secondary" />
+                    <h2 className="text-2xl sm:text-3xl font-bold text-white">All Products</h2>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                     {allProducts.map((product, index) => (
                       <ScrollAnimation key={index} delay={500 + index * 100}>
                         <SpotlightEffect>
@@ -112,14 +114,14 @@ export default function HomePage() {
 
             {/* Sidebar - 1 column on XL screens */}
             <div className="xl:col-span-1 xl:pl-4">
-              <div className="sticky top-24 space-y-8">
+              <div className="sticky top-24 space-y-6 sm:space-y-8">
                 {/* Top Selling Rank Highlight */}
                 <ScrollAnimation delay={600} direction="right">
                   <SpotlightEffect>
                     <Card className="glass border-white/20 overflow-hidden">
                       <CardHeader className="pb-4">
-                        <CardTitle className="text-white flex items-center space-x-2">
-                          <Shield className="w-5 h-5 text-primary" />
+                        <CardTitle className="text-white flex items-center space-x-2 text-base sm:text-lg">
+                          <Shield className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                           <span>Top Selling Rank</span>
                         </CardTitle>
                       </CardHeader>
@@ -129,29 +131,81 @@ export default function HomePage() {
                             <img
                               src="/minecraft-diamond-rank-crown.png"
                               alt="Diamond Rank"
-                              className="w-24 h-24 mx-auto rounded-lg shadow-lg"
+                              className="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-lg shadow-lg"
                             />
                             <div className="absolute -top-2 -right-2">
-                              <Badge className="gradient-primary text-white text-xs">20% OFF</Badge>
+                              <Badge className="gradient-primary text-white text-xs">30% OFF</Badge>
                             </div>
                           </div>
-                          <h3 className="text-xl font-bold text-white mb-2">Diamond Rank</h3>
-                          <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
+                          <h3 className="text-lg sm:text-xl font-bold text-white mb-2">Diamond Rank</h3>
+                          <p className="text-muted-foreground text-xs sm:text-sm mb-4 leading-relaxed">
                             The most popular rank with exclusive perks, god mode, and unlimited homes.
                           </p>
                           <div className="flex items-center justify-center space-x-2 mb-4">
-                            <span className="text-2xl font-bold text-primary">$12.99</span>
-                            <span className="text-muted-foreground line-through text-lg">$15.99</span>
+                            <span className="text-xl sm:text-2xl font-bold text-primary">$49.99</span>
+                            <span className="text-muted-foreground line-through text-base sm:text-lg">$69.99</span>
                           </div>
-                          <Button className="w-full gradient-primary text-white hover-glow">Get Now</Button>
+                          <a href={DISCORD_INVITE_LINK} target="_blank" rel="noopener noreferrer">
+                            <Button className="w-full gradient-primary text-white hover-glow text-sm sm:text-base">
+                              Get Now
+                            </Button>
+                          </a>
                         </div>
                       </CardContent>
                     </Card>
                   </SpotlightEffect>
                 </ScrollAnimation>
 
-                {/* Leaderboard */}
+                <ScrollAnimation delay={650} direction="right">
+                  <SpotlightEffect>
+                    <Link href="/ranks">
+                      <Card className="glass border-white/20 cursor-pointer hover:border-primary/50 transition-all duration-300">
+                        <CardContent className="p-4 sm:p-6 text-center">
+                          <div className="mb-3">
+                            <Shield className="w-8 h-8 sm:w-10 sm:h-10 mx-auto text-primary mb-2" />
+                            <h3 className="text-base sm:text-lg font-bold text-white mb-1">Browse Ranks</h3>
+                            <p className="text-muted-foreground text-xs sm:text-sm">
+                              Explore all available server ranks
+                            </p>
+                          </div>
+                          <Button
+                            variant="outline"
+                            className="glass border-white/30 text-white hover:bg-white/20 bg-transparent text-sm"
+                          >
+                            View All Ranks
+                          </Button>
+                        </CardContent>
+                      </Card>
+                    </Link>
+                  </SpotlightEffect>
+                </ScrollAnimation>
+
                 <ScrollAnimation delay={700} direction="right">
+                  <SpotlightEffect>
+                    <Link href="/keys">
+                      <Card className="glass border-white/20 cursor-pointer hover:border-secondary/50 transition-all duration-300">
+                        <CardContent className="p-4 sm:p-6 text-center">
+                          <div className="mb-3">
+                            <Zap className="w-8 h-8 sm:w-10 sm:h-10 mx-auto text-secondary mb-2" />
+                            <h3 className="text-base sm:text-lg font-bold text-white mb-1">View Crate Keys</h3>
+                            <p className="text-muted-foreground text-xs sm:text-sm">
+                              Unlock amazing rewards from crates
+                            </p>
+                          </div>
+                          <Button
+                            variant="outline"
+                            className="glass border-white/30 text-white hover:bg-white/20 bg-transparent text-sm"
+                          >
+                            View All Keys
+                          </Button>
+                        </CardContent>
+                      </Card>
+                    </Link>
+                  </SpotlightEffect>
+                </ScrollAnimation>
+
+                {/* Leaderboard */}
+                <ScrollAnimation delay={750} direction="right">
                   <SpotlightEffect>
                     <Leaderboard />
                   </SpotlightEffect>
@@ -159,19 +213,23 @@ export default function HomePage() {
 
                 <ScrollAnimation delay={800} direction="right">
                   <SpotlightEffect>
-                    <Card className="glass border-white/20 bg-gradient-to-br from-primary/10 to-secondary/10">
-                      <CardContent className="p-6 text-center">
+                    <Card className="glass border-white/20">
+                      <CardContent className="p-4 sm:p-6 text-center">
                         <div className="mb-4">
-                          <Badge className="gradient-primary text-white mb-2">Limited Time</Badge>
-                          <h3 className="text-lg font-bold text-white mb-2">Weekend Sale</h3>
-                          <p className="text-muted-foreground text-sm">Get 25% off all crate keys this weekend only!</p>
+                          <Badge className="gradient-primary text-white mb-2 text-xs sm:text-sm">Limited Time</Badge>
+                          <h3 className="text-base sm:text-lg font-bold text-white mb-2">Weekend Sale</h3>
+                          <p className="text-muted-foreground text-xs sm:text-sm">
+                            Get 25% off all crate keys this weekend only!
+                          </p>
                         </div>
-                        <Button
-                          variant="outline"
-                          className="glass border-white/30 text-white hover:bg-white/20 bg-transparent"
-                        >
-                          View Deals
-                        </Button>
+                        <a href={DISCORD_INVITE_LINK} target="_blank" rel="noopener noreferrer">
+                          <Button
+                            variant="outline"
+                            className="glass border-white/30 text-white hover:bg-white/20 bg-transparent text-sm"
+                          >
+                            View Deals
+                          </Button>
+                        </a>
                       </CardContent>
                     </Card>
                   </SpotlightEffect>
@@ -181,71 +239,6 @@ export default function HomePage() {
           </div>
         </div>
       </main>
-
-      {/* Footer */}
-      <footer className="border-t border-white/20 bg-black/50 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="col-span-1 md:col-span-2">
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">FN</span>
-                </div>
-                <span className="text-white font-bold text-xl">FrostNetwork</span>
-              </div>
-              <p className="text-muted-foreground mb-4">
-                The premier destination for Minecraft server enhancements. Level up your gameplay with our exclusive
-                ranks, crate keys, and services.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-white font-semibold mb-4">Quick Links</h3>
-              <ul className="space-y-2 text-muted-foreground">
-                <li>
-                  <a href="#" className="hover:text-primary transition-colors">
-                    Privacy Policy
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-primary transition-colors">
-                    Terms of Service
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-primary transition-colors">
-                    Contact Us
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-primary transition-colors">
-                    Discord
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="text-white font-semibold mb-4">Payment Methods</h3>
-              <div className="grid grid-cols-3 gap-2">
-                <div className="glass p-2 rounded text-center text-xs text-white">PayPal</div>
-                <div className="glass p-2 rounded text-center text-xs text-white">Visa</div>
-                <div className="glass p-2 rounded text-center text-xs text-white">MC</div>
-                <div className="glass p-2 rounded text-center text-xs text-white">GCash</div>
-                <div className="glass p-2 rounded text-center text-xs text-white">Apple</div>
-                <div className="glass p-2 rounded text-center text-xs text-white">Google</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t border-white/20 mt-8 pt-8 text-center">
-            <p className="text-muted-foreground">© 2025 FrostNetwork — Built with love by Max67 ❤️</p>
-          </div>
-        </div>
-
-        {/* Bottom gradient glow */}
-        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-96 h-32 bg-gradient-to-t from-primary/20 to-transparent blur-3xl pointer-events-none" />
-      </footer>
     </div>
   )
 }

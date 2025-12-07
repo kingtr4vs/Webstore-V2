@@ -6,6 +6,8 @@ import "./globals.css"
 import { CartProvider } from "@/contexts/cart-context"
 import { AuthProvider } from "@/contexts/auth-context"
 import { Footer } from "@/components/footer"
+import { WaterDropEffect } from "@/components/water-drop-effect"
+import { AnnouncementPopup } from "@/components/announcement-popup"
 
 const geist = Geist({
   subsets: ["latin"],
@@ -24,7 +26,12 @@ export const metadata: Metadata = {
   description:
     "Level up your Minecraft experience with exclusive ranks, crate keys, and premium services from Frost Network.",
   generator: "v0.app",
-  viewport: "width=device-width, initial-scale=1, maximum-scale=5",
+}
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
 }
 
 export default function RootLayout({
@@ -34,9 +41,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${geist.variable} ${manrope.variable} dark`}>
+      <head>
+        <link rel="icon" href="/favicon.jpg" type="image/png" />
+      </head>
       <body className="font-sans antialiased">
         <AuthProvider>
           <CartProvider>
+            <WaterDropEffect />
+            <AnnouncementPopup />
             {children}
             <Footer />
           </CartProvider>

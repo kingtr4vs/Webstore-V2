@@ -23,7 +23,7 @@ export default function DashboardPage() {
 
   if (state.isLoading) {
     return (
-      <div className="min-h-screen">
+      <div className="min-h-screen bg-black">
         <Navbar />
         <div className="pt-24 pb-16 flex items-center justify-center">
           <div className="text-white">Loading...</div>
@@ -39,7 +39,7 @@ export default function DashboardPage() {
   const { user } = state
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-black">
       <Navbar />
 
       <div className="pt-24 pb-16">
