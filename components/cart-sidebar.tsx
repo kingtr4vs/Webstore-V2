@@ -4,8 +4,9 @@ import { useCart } from "@/contexts/cart-context"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
-import { ShoppingCart, Plus, Minus, Trash2 } from "lucide-react"
-import Link from "next/link"
+import { ShoppingCart, Plus, Minus, Trash2, MessageCircle, Zap } from "lucide-react"
+
+const DISCORD_INVITE_LINK = "https://discord.gg/frostnetwork"
 
 export function CartSidebar() {
   const { state, dispatch } = useCart()
@@ -16,6 +17,16 @@ export function CartSidebar() {
 
   const removeItem = (id: string) => {
     dispatch({ type: "REMOVE_ITEM", payload: id })
+  }
+
+  const handleCheckout = () => {
+    dispatch({ type: "CLOSE_CART" })
+    window.open(DISCORD_INVITE_LINK, "_blank")
+  }
+
+  const handleBuyNow = () => {
+    dispatch({ type: "CLOSE_CART" })
+    window.open(DISCORD_INVITE_LINK, "_blank")
   }
 
   return (
@@ -56,7 +67,18 @@ export function CartSidebar() {
             </div>
           ) : (
             <>
-              <div className="flex-1 overflow-y-auto py-6 space-y-4">
+              <div className="py-4 border-b border-white/20">
+                <Button
+                  onClick={handleBuyNow}
+                  className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3"
+                >
+                  <Zap className="w-5 h-5 mr-2" />
+                  Buy Now - ${state.total.toFixed(2)}
+                </Button>
+                <p className="text-xs text-muted-foreground text-center mt-2">Click to purchase via Discord</p>
+              </div>
+
+              <div className="flex-1 overflow-y-auto py-4 space-y-4">
                 {state.items.map((item) => (
                   <div key={item.id} className="glass rounded-lg p-4 border-white/10">
                     <div className="flex items-start space-x-3">
@@ -126,9 +148,10 @@ export function CartSidebar() {
                 </div>
 
                 <div className="space-y-2">
-                  <Link href="/checkout" onClick={() => dispatch({ type: "CLOSE_CART" })}>
-                    <Button className="w-full gradient-primary text-white hover-glow">Proceed to Checkout</Button>
-                  </Link>
+                  <Button onClick={handleCheckout} className="w-full gradient-primary text-white hover-glow">
+                    <MessageCircle className="w-4 h-4 mr-2" />
+                    Checkout via Discord
+                  </Button>
 
                   <Button
                     variant="outline"

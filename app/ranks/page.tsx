@@ -1,11 +1,14 @@
+"use client"
+
 import { Navbar } from "@/components/navbar"
 import { ProductCard } from "@/components/product-card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Crown, Star, Zap, Shield, Gem, Award } from "lucide-react"
-
-const DISCORD_INVITE_LINK = "https://discord.gg/frostnetwork"
+import { useCart } from "@/contexts/cart-context"
+import { useAuth } from "@/contexts/auth-context"
+import { toast } from "sonner"
 
 const ranks = [
   {
@@ -94,6 +97,37 @@ const rankUpgrades = [
 ]
 
 export default function RanksPage() {
+  const { dispatch } = useCart()
+  const { state: authState } = useAuth()
+
+  const handleAddToCart = (rank: (typeof ranks)[0]) => {
+    if (!authState.isAuthenticated) {
+      toast.error("Please login or register first to add items to your cart", {
+        description: "You need an account to make purchases",
+        action: {
+          label: "Login",
+          onClick: () => (window.location.href = "/login"),
+        },
+      })
+      return
+    }
+
+    dispatch({
+      type: "ADD_ITEM",
+      payload: {
+        id: `rank-${rank.title.toLowerCase().replace(/\s+/g, "-")}`,
+        title: rank.title,
+        price: Number.parseFloat(rank.price),
+        originalPrice: rank.originalPrice ? Number.parseFloat(rank.originalPrice) : undefined,
+        image: rank.image,
+        category: "rank",
+      },
+    })
+
+    dispatch({ type: "OPEN_CART" })
+    toast.success(`${rank.title} added to cart!`)
+  }
+
   return (
     <div className="min-h-screen bg-black">
       <Navbar />
@@ -173,7 +207,12 @@ export default function RanksPage() {
                     </ul>
                   </div>
 
-                  <Button className="w-full gradient-primary text-white hover-glow">Purchase Rank</Button>
+                  <Button
+                    onClick={() => handleAddToCart(rank)}
+                    className="w-full gradient-primary text-white hover-glow"
+                  >
+                    Add to Cart
+                  </Button>
                 </CardContent>
               </Card>
             ))}
@@ -190,7 +229,7 @@ export default function RanksPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {rankUpgrades.map((upgrade, index) => (
-              <ProductCard key={index} {...upgrade} />
+              <ProductCard key={index} {...upgrade} category="rank" />
             ))}
           </div>
         </section>

@@ -1,11 +1,14 @@
+"use client"
+
 import { Navbar } from "@/components/navbar"
 import { ProductCard } from "@/components/product-card"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Shield, Clock, Zap, AlertTriangle, CheckCircle, Info } from "lucide-react"
-
-const DISCORD_INVITE_LINK = "https://discord.gg/frostnetwork"
+import { useCart } from "@/contexts/cart-context"
+import { useAuth } from "@/contexts/auth-context"
+import { toast } from "sonner"
 
 const unbanServices = [
   {
@@ -82,6 +85,36 @@ const unbanPackages = [
 ]
 
 export default function UnbansPage() {
+  const { dispatch } = useCart()
+  const { state: authState } = useAuth()
+
+  const handleAddToCart = (service: (typeof unbanServices)[0]) => {
+    if (!authState.isAuthenticated) {
+      toast.error("Please login or register first to add items to your cart", {
+        description: "You need an account to make purchases",
+        action: {
+          label: "Login",
+          onClick: () => (window.location.href = "/login"),
+        },
+      })
+      return
+    }
+
+    dispatch({
+      type: "ADD_ITEM",
+      payload: {
+        id: `unban-${service.title.toLowerCase().replace(/\s+/g, "-")}`,
+        title: service.title,
+        price: Number.parseFloat(service.price),
+        image: service.image,
+        category: "unban",
+      },
+    })
+
+    dispatch({ type: "OPEN_CART" })
+    toast.success(`${service.title} added to cart!`)
+  }
+
   return (
     <div className="min-h-screen bg-black">
       <Navbar />
@@ -184,8 +217,12 @@ export default function UnbansPage() {
                     </div>
                   </div>
 
-                  <Button size="sm" className="w-full gradient-primary text-white hover-glow">
-                    Request Unban
+                  <Button
+                    size="sm"
+                    onClick={() => handleAddToCart(service)}
+                    className="w-full gradient-primary text-white hover-glow"
+                  >
+                    Add to Cart
                   </Button>
                 </CardContent>
               </Card>
@@ -203,7 +240,7 @@ export default function UnbansPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {unbanPackages.map((package_, index) => (
-              <ProductCard key={index} {...package_} />
+              <ProductCard key={index} {...package_} category="unban" />
             ))}
           </div>
         </section>

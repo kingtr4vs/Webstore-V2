@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { useCart } from "@/contexts/cart-context"
-
-const DISCORD_INVITE_LINK = "https://discord.gg/frostnetwork"
+import { useAuth } from "@/contexts/auth-context"
+import { toast } from "sonner"
 
 interface ProductCardProps {
   title: string
@@ -29,9 +29,38 @@ export function ProductCard({
   category = "rank",
 }: ProductCardProps) {
   const { dispatch } = useCart()
+  const { state: authState } = useAuth()
 
   const handleAddToCart = () => {
-    window.open(DISCORD_INVITE_LINK, "_blank")
+    // Check if user is logged in
+    if (!authState.isAuthenticated) {
+      toast.error("Please login or register first to add items to your cart", {
+        description: "You need an account to make purchases",
+        action: {
+          label: "Login",
+          onClick: () => (window.location.href = "/login"),
+        },
+      })
+      return
+    }
+
+    // Add item to cart
+    dispatch({
+      type: "ADD_ITEM",
+      payload: {
+        id: `${category}-${title.toLowerCase().replace(/\s+/g, "-")}`,
+        title,
+        price: Number.parseFloat(price),
+        originalPrice: originalPrice ? Number.parseFloat(originalPrice) : undefined,
+        image,
+        category,
+      },
+    })
+
+    // Open cart sidebar after adding item
+    dispatch({ type: "OPEN_CART" })
+
+    toast.success(`${title} added to cart!`)
   }
 
   return (
@@ -69,7 +98,7 @@ export function ProductCard({
           onClick={handleAddToCart}
           className="w-full gradient-primary text-white hover-glow transition-all duration-300"
         >
-          Buy Now
+          Add to Cart
         </Button>
       </CardFooter>
     </Card>

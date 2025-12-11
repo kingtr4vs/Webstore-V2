@@ -1,11 +1,14 @@
+"use client"
+
 import { Navbar } from "@/components/navbar"
 import { ProductCard } from "@/components/product-card"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Key, Gift, Sparkles, Gem, Crown, Star } from "lucide-react"
-
-const DISCORD_INVITE_LINK = "https://discord.gg/frostnetwork"
+import { useCart } from "@/contexts/cart-context"
+import { useAuth } from "@/contexts/auth-context"
+import { toast } from "sonner"
 
 const crateKeys = [
   {
@@ -85,6 +88,36 @@ const keyBundles = [
 ]
 
 export default function KeysPage() {
+  const { dispatch } = useCart()
+  const { state: authState } = useAuth()
+
+  const handleAddToCart = (key: (typeof crateKeys)[0]) => {
+    if (!authState.isAuthenticated) {
+      toast.error("Please login or register first to add items to your cart", {
+        description: "You need an account to make purchases",
+        action: {
+          label: "Login",
+          onClick: () => (window.location.href = "/login"),
+        },
+      })
+      return
+    }
+
+    dispatch({
+      type: "ADD_ITEM",
+      payload: {
+        id: `key-${key.title.toLowerCase().replace(/\s+/g, "-")}`,
+        title: key.title,
+        price: Number.parseFloat(key.price),
+        image: key.image,
+        category: "key",
+      },
+    })
+
+    dispatch({ type: "OPEN_CART" })
+    toast.success(`${key.title} added to cart!`)
+  }
+
   return (
     <div className="min-h-screen bg-black">
       <Navbar />
@@ -157,8 +190,12 @@ export default function KeysPage() {
                     </ul>
                   </div>
 
-                  <Button size="sm" className="w-full gradient-primary text-white hover-glow">
-                    Buy Key
+                  <Button
+                    size="sm"
+                    onClick={() => handleAddToCart(key)}
+                    className="w-full gradient-primary text-white hover-glow"
+                  >
+                    Add to Cart
                   </Button>
                 </CardContent>
               </Card>
@@ -176,7 +213,7 @@ export default function KeysPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {keyBundles.map((bundle, index) => (
-              <ProductCard key={index} {...bundle} />
+              <ProductCard key={index} {...bundle} category="key" />
             ))}
           </div>
         </section>

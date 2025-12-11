@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
+import { useState } from "react"
 import { Navbar } from "@/components/navbar"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -52,80 +52,78 @@ const partners = [
 ]
 
 function PhotoCarousel({ photos }: { photos: string[] }) {
-  const scrollContainerRef = useRef<HTMLDivElement>(null)
-  const [canScrollLeft, setCanScrollLeft] = useState(false)
-  const [canScrollRight, setCanScrollRight] = useState(true)
+  const [currentIndex, setCurrentIndex] = useState(0)
 
-  const checkScroll = () => {
-    if (scrollContainerRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current
-      setCanScrollLeft(scrollLeft > 0)
-      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10)
-    }
+  // Only show up to 5 photos max
+  const displayPhotos = photos.slice(0, 5)
+  const totalPhotos = displayPhotos.length
+
+  // Don't show carousel if no photos
+  if (totalPhotos === 0) return null
+
+  const goToNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % totalPhotos)
   }
 
-  useEffect(() => {
-    checkScroll()
-    const container = scrollContainerRef.current
-    if (container) {
-      container.addEventListener("scroll", checkScroll)
-      return () => container.removeEventListener("scroll", checkScroll)
-    }
-  }, [])
+  const goToPrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + totalPhotos) % totalPhotos)
+  }
 
-  const scroll = (direction: "left" | "right") => {
-    if (scrollContainerRef.current) {
-      const scrollAmount = 280
-      scrollContainerRef.current.scrollBy({
-        left: direction === "left" ? -scrollAmount : scrollAmount,
-        behavior: "smooth",
-      })
-    }
+  const goToIndex = (index: number) => {
+    setCurrentIndex(index)
   }
 
   return (
     <div className="relative group">
-      {/* Scroll Buttons */}
-      {canScrollLeft && (
-        <button
-          onClick={() => scroll("left")}
-          className="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-black/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/90"
-        >
-          <ChevronLeft className="w-5 h-5" />
-        </button>
-      )}
-      {canScrollRight && (
-        <button
-          onClick={() => scroll("right")}
-          className="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-black/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/90"
-        >
-          <ChevronRight className="w-5 h-5" />
-        </button>
-      )}
+      {/* Single Photo Display */}
+      <div className="relative w-full aspect-video max-w-md mx-auto overflow-hidden rounded-lg border border-white/10">
+        <img
+          src={displayPhotos[currentIndex] || "/placeholder.svg"}
+          alt={`Partner photo ${currentIndex + 1}`}
+          className="w-full h-full object-cover transition-opacity duration-300"
+        />
 
-      {/* Photo Scroll Container - TikTok style horizontal scroll */}
-      <div
-        ref={scrollContainerRef}
-        className="flex gap-3 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-2"
-        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-      >
-        {photos.map((photo, index) => (
-          <div key={index} className="flex-shrink-0 snap-center first:pl-0 last:pr-0">
-            <img
-              src={photo || "/placeholder.svg"}
-              alt={`Partner photo ${index + 1}`}
-              className="w-64 h-40 sm:w-72 sm:h-44 object-cover rounded-lg border border-white/10"
-            />
+        {/* Navigation Buttons - only show if more than 1 photo */}
+        {totalPhotos > 1 && (
+          <>
+            <button
+              onClick={goToPrev}
+              className="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-black/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/90"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              onClick={goToNext}
+              className="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-black/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/90"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </>
+        )}
+
+        {/* Photo Counter */}
+        {totalPhotos > 1 && (
+          <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded-full">
+            {currentIndex + 1} / {totalPhotos}
           </div>
-        ))}
+        )}
       </div>
 
-      {/* Scroll Indicator Dots */}
-      <div className="flex justify-center gap-1.5 mt-3">
-        {photos.map((_, index) => (
-          <div key={index} className="w-1.5 h-1.5 rounded-full bg-white/30" />
-        ))}
-      </div>
+      {/* Dots Indicator - only show if more than 1 photo, shows exact number of photos */}
+      {totalPhotos > 1 && (
+        <div className="flex justify-center gap-2 mt-3">
+          {displayPhotos.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToIndex(index)}
+              className={`w-2.5 h-2.5 rounded-full transition-all duration-200 ${
+                index === currentIndex ? "bg-primary scale-125" : "bg-white/30 hover:bg-white/50"
+              }`}
+              aria-label={`Go to photo ${index + 1}`}
+            />
+          ))}
+        </div>
+      )}
     </div>
   )
 }

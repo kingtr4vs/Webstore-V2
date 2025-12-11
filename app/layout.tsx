@@ -6,8 +6,7 @@ import "./globals.css"
 import { CartProvider } from "@/contexts/cart-context"
 import { AuthProvider } from "@/contexts/auth-context"
 import { Footer } from "@/components/footer"
-import { WaterDropEffect } from "@/components/water-drop-effect"
-import { AnnouncementPopup } from "@/components/announcement-popup"
+import { Toaster } from "sonner"
 
 const geist = Geist({
   subsets: ["latin"],
@@ -47,10 +46,19 @@ export default function RootLayout({
       <body className="font-sans antialiased">
         <AuthProvider>
           <CartProvider>
-            <WaterDropEffect />
-            <AnnouncementPopup />
             {children}
             <Footer />
+            <Toaster
+              theme="dark"
+              position="top-center"
+              toastOptions={{
+                style: {
+                  background: "rgba(0, 0, 0, 0.9)",
+                  border: "1px solid rgba(255, 255, 255, 0.1)",
+                  color: "white",
+                },
+              }}
+            />
           </CartProvider>
         </AuthProvider>
       </body>
