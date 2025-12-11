@@ -15,7 +15,7 @@ import { useAuth } from "@/contexts/auth-context"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 
-const DISCORD_INVITE_LINK = "https://discord.gg/frostnetwork"
+const DISCORD_INVITE_LINK = "https://discord.gg/yT2s7Bavx7"
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
