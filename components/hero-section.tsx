@@ -13,7 +13,7 @@ export function HeroSection() {
 
         <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
           <span className="bg-gradient-to-r from-[#1E90FF] to-[#663399] bg-clip-text text-transparent">
-            Frost Network
+            The Best
           </span>
           <span className="block text-white/90">Minecraft Experience</span>
         </h1>
@@ -25,14 +25,14 @@ export function HeroSection() {
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button size="lg" className="gradient-primary text-white hover-glow px-8 py-4 text-lg">
-            Browse Ranks
+            Premium Ranks
           </Button>
           <Button
             size="lg"
             variant="outline"
             className="glass border-white/30 text-white hover:bg-white/20 px-8 py-4 text-lg bg-transparent"
           >
-            View Crate Keys
+            Premium Crate Keys
           </Button>
         </div>
 
