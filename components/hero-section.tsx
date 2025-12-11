@@ -25,14 +25,14 @@ export function HeroSection() {
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button size="lg" className="gradient-primary text-white hover-glow px-8 py-4 text-lg">
-            Premium Ranks
+            Unique Ranks
           </Button>
           <Button
             size="lg"
             variant="outline"
             className="glass border-white/30 text-white hover:bg-white/20 px-8 py-4 text-lg bg-transparent"
           >
-            Premium Crate Keys
+            Unique Crate Keys
           </Button>
         </div>
 
